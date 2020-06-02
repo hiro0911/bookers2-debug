@@ -3,12 +3,16 @@ before_action :authenticate_user!
   def show
   	@book = Book.find(params[:id])
     @user = @book.user
+    @favorite = Favorite.new
+    @favorites_count = Favorite.where(book_id: @book.id).count
+    @book_comment = BookComment.new
   end
 
   def index
     @book = Book.new
   	@books = Book.all #一覧表示するためにBookモデルの情報を全てくださいのall
     @user = current_user
+    @favorites_count = Favorite.where(book_id: @book.id).count
   end
 
   def create
@@ -47,6 +51,7 @@ before_action :authenticate_user!
   	redirect_to books_path, notice: "successfully delete book!"
   end
 
+
   private
 
   def book_params
@@ -55,4 +60,5 @@ before_action :authenticate_user!
   def user_params
     params.require(:user).permit(:name,:profile_image,:introduction)
   end
+
 end
