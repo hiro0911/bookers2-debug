@@ -59,20 +59,12 @@
 							
 						</i>
 					</td>
-					<td>
-						<% unless book.user == current_user %>  
-  <% if current_user.following?(book.user) %> 
-    <%= link_to 'フォロー外す', unfollow_path(book.user.id), method: :POST, class: "btn btn-primary" %>
-  <% else %>
-    <%= link_to 'フォローする', follow_path(book.user.id), method: :POST, class: "btn btn-success" %>
-  <% end %>
-<% end %>
-					</td></tr>
+</tr>
 					<% end %>
 				</tbody>
 			</table>
 
-			<!--books一覧 -->
+		
 
 
 		</div>
