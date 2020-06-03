@@ -3,7 +3,11 @@
   <div class="col-xs-3">
 <h2>User info</h2>
 <%= render 'users/profile', user: current_user %>
-<!--メモ　右側の指定に注意。そこを間違えるとエラーが発生して表示されない -->
+
+<table class="table"><tr>
+<td class="col-md-6"><%= link_to "フォロー数: #{current_user.follower.count}","/users/following/#{current_user.id}" %></td>
+<td><%= link_to "フォロワー数: #{current_user.followed.count}","/users/follower/#{current_user.id}" %></td>
+</tr></table>
 
 <h2>New book</h2>
 <%= render 'books/newform', book: @book %>
@@ -24,10 +28,20 @@
 	</thead>
 
 	<tbody>
-		<% @users.each do |user| %>
+		<% User.all.where.not(id: current_user.id).each do |user| %>
 		<tr>
 			<td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %></td>
 			<td><%= user.name%></td>
+			<td><p><%= "フォロー数: #{user.follower.count}" %></p></td>
+      <td><p><%= "フォロワー数: #{user.followed.count}" %></p></td>
+      <td>      <% if current_user.following?(user) %>
+        <%= link_to 'フォロー外す', unfollow_path(user.id), method: :POST, class: "btn btn-primary" %>
+      <% else %>
+        <%= link_to 'フォローする', follow_path(user.id), method: :POST, class: "btn btn-success" %>
+      <% end %></td>
+
+
+
 			<td><%= link_to "Show", user, class: "user_#{user.id}" %></td>
 		</tr>
 		<% end %>

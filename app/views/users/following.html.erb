@@ -1,0 +1,23 @@
+<h3>Following List</h3>
+<% @user.following_user.each do |user| %>
+<div class="">
+<table class="table table-hover table-inverse">
+  <tbody>
+    <tr>
+      <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %></td>
+      <td class="col-xs-2"><%= user.name %></td>
+      <td><%= "フォロー数: #{user.follower.count}" %></td>
+      <td><%= "フォロワー数: #{user.followed.count}" %></td>
+      <td width="220"><% unless user == current_user %> 
+        <% if current_user.following?(user) %>
+        <%= link_to 'フォロー外す', unfollow_path(user.id), method: :POST, class: "btn btn-primary" %>
+        <% else %>
+        <%= link_to 'フォローする', follow_path(user.id), method: :POST, class: "btn btn-success" %>
+        <% end %><% end %></td>
+        <td><%= link_to "show", user_path(user) %></td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>
+  
