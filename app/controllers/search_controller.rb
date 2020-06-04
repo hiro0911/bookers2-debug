@@ -4,7 +4,7 @@ class SearchController < ApplicationController
 	def search
 		@model = params['search']['model']
     	@content = params['search']['content']
-    	@how = params["search"]["how"]
+    	@condition = params["search"]["how"]
     	@posts = search_for(@model, @content, @how)
     	
 	end
@@ -44,7 +44,7 @@ class SearchController < ApplicationController
 		end
 
 	    def search_for(model, content, how)
-	        case how
+	        case @condition
 	        when 'match'
 	        	match(model, content)
 	        when 'forward'

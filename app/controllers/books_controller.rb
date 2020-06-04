@@ -3,8 +3,6 @@ before_action :authenticate_user!
   def show
   	@book = Book.find(params[:id])
     @user = @book.user
-    @favorite = Favorite.new
-    @favorites_count = Favorite.where(book_id: @book.id).count
     @book_comment = BookComment.new
   end
 
@@ -12,7 +10,6 @@ before_action :authenticate_user!
     @book = Book.new
   	@books = Book.all #一覧表示するためにBookモデルの情報を全てくださいのall
     @user = current_user
-    @favorites_count = Favorite.where(book_id: @book.id).count
   end
 
   def create
