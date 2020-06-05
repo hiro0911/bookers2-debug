@@ -16,7 +16,13 @@ class ApplicationController < ActionController::Base
    protect_from_forgery with: :exception
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email,:postcode, :prefecture_code, :address_city, :address_street, :address_building,:latitude, :longitude])
     #sign_upの際にnameのデータ操作を許。追加したカラム。
   end
+
 end
+    # t.integer "postcode"
+    # t.integer "prefecture_code"
+    # t.string "address_city"
+    # t.string "address_street"
+    # t.string "address_building"

@@ -12,6 +12,7 @@ has_many :follower, class_name: "Relationship", foreign_key: "follower_id", depe
 has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy # フォロワー取得
 has_many :following_user, through: :follower, source: :followed # 自分がフォローしている人
 has_many :follower_user, through: :followed, source: :follower # 自分をフォローしている人
+  
 
 
     def already_favorited?(book)
@@ -37,6 +38,17 @@ end
 def following?(user)
 	following_user.include?(user)
 end
+  #prefecture_codeからprefecture_nameに変換するメソッドをモデルに書いておきます。
+  include JpPrefecture
+  jp_prefecture :prefecture_code
+  
+  def prefecture_name
+    JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
+  end
+  
+  def prefecture_name=(prefecture_name)
+    self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
+  end
 
 
 end

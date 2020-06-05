@@ -80,3 +80,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
 gem 'pry-rails'
 gem 'kaminari'
+gem 'jp_prefecture'
+gem 'simple_form'  #formをすっきり書けます
+ gem "geocoder"
+ gem 'dotenv-rails'

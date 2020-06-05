@@ -15,6 +15,23 @@
     <%= f.email_field :email, autofocus: true, class: "email" %>
   </div>
 
+  <!-- 住所入力 -->
+  <div class="field">
+    <%= f.label :poscode %><br />
+    <%= f.text_field :postcode, autofocus: true, placeholder: 'postal_code', class: "postal_code", id: "address_zipcode" %><br>
+  </div>
+
+  <div class="field">
+    <%= f.label :prefecture_code %><br>
+    <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, class: "address", id: "address_prefecture_name" %><br>
+    <%= f.label :address_city %><br>
+    <%= f.text_field :address_city, autofocus: true, placeholder: 'city', class: "address", id:"address_city" %><br>
+    <%= f.label :address_building %><br>
+    <%= f.text_field :address_building, autofocus: true, placeholder: 'building', class: "address", id: "address_street" %><br>
+  </div>
+  <!-- ここまで -->
+
+<!--パスワード確認入力フォーム-->
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
@@ -22,8 +39,6 @@
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password", class: "password" %>
   </div>
-
-<!--パスワード確認入力フォーム-->
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "password_confirm" %>
