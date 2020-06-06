@@ -10,9 +10,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+    NoticeMailer.greeting(current_user).deliver unless resource.invalid?
+  end
 
   # GET /resource/edit
   # def edit

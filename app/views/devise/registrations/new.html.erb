@@ -16,20 +16,17 @@
   </div>
 
   <!-- 住所入力 -->
-  <div class="field">
-    <%= f.label :poscode %><br />
-    <%= f.text_field :postcode, autofocus: true, placeholder: 'postal_code', class: "postal_code", id: "address_zipcode" %><br>
-  </div>
 
-  <div class="field">
-    <%= f.label :prefecture_code %><br>
-    <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, class: "address", id: "address_prefecture_name" %><br>
-    <%= f.label :address_city %><br>
-    <%= f.text_field :address_city, autofocus: true, placeholder: 'city', class: "address", id:"address_city" %><br>
-    <%= f.label :address_building %><br>
-    <%= f.text_field :address_building, autofocus: true, placeholder: 'building', class: "address", id: "address_street" %><br>
-  </div>
-  <!-- ここまで -->
+<%= simple_form_for @user do |f| %>
+ 
+  <%= f.input :postcode %>
+  <%= f.input :prefecture_code, collection: JpPrefecture::Prefecture.all, :value_method => :name, include_blank: '都道府県' %>
+  <%= f.input :address_city %>
+  <%= f.input :address_street %>
+  <%= f.input :address_building %>
+  
+<% end %>  
+<!-- ここまで -->
 
 <!--パスワード確認入力フォーム-->
   <div class="field">
